@@ -81,6 +81,10 @@ extern char *cJSON_Print(cJSON *item);
 extern char *cJSON_PrintUnformatted(cJSON *item);
 /* Delete a cJSON entity and all subentities. */
 extern void cJSON_Delete(cJSON *c);
+/* securely comparison of floating-point variables */
+extern bool compare_double(double a, double b);
+extern bool cJSON_Compare(const cJSON * const aCJSON, const cJSON * const bCJSON, bool case_sensitive)
+
 
 /* Returns the number of items in an array (or object). */
 extern int cJSON_GetArraySize(cJSON *array);

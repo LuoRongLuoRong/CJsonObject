@@ -115,6 +115,48 @@ void cJSON_Delete(cJSON *c)
     }
 }
 
+bool compare_double(double aValue, double bValue)
+{
+    double maxVal = aValue > bValue ? aValue : bValue;
+    double minVal = aValue > bValue ? bValue : aValue;
+    bool approximatively_equal = ((maxVal - minVal) <= maxVal * DBL_EPSILON);
+    return approximatively_equal;
+}
+
+bool cJSON_Compare(cJSON * aCJSON, cJSON * bCJSON)
+{
+    int aType = aCJSON->type;
+    int bType = bCJSON->type;
+    if ((aCJSON == NULL) || (bCJSON == NULL) || (aType != bType))
+    {
+        return false;
+    }
+
+    /* identical objects are equal */
+    if (a == b)
+    {
+        return true;
+    }
+
+    switch (aType)
+    {
+        /* in these cases and equal type is enough */
+        case cJSON_False:
+        case cJSON_True:
+        case cJSON_NULL:
+            return true;
+
+        case cJSON_Number:
+            if (compare_double(a->valuedouble, b->valuedouble))
+            {
+                return true;
+            }
+            return false;
+        default:
+            return false;
+    }
+}
+
 /* Parse the input text to generate a number, and populate the result into item. */
 static const char *parse_number(cJSON *item, const char *num)
 {

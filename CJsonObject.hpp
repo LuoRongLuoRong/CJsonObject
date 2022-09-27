@@ -220,6 +220,9 @@ private:
     std::unordered_map<std::string, CJsonObject*> m_mapJsonObjectRef;
     std::unordered_map<unsigned int, CJsonObject*>::iterator m_array_iter;
 #endif
+
+public:
+    bool Compare(cJSON* newJson);
 };
 
 }

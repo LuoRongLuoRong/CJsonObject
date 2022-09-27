@@ -826,6 +826,10 @@ bool CJsonObject::Get(const std::string& strKey, int64& llValue) const
     return(false);
 }
 
+bool CJsonObject::Compare(cJSON* newJson) {
+    return cJSON_Compare(pJsonStruct, newJson);
+}
+
 bool CJsonObject::Get(const std::string& strKey, uint64& ullValue) const
 {
     cJSON* pJsonStruct = NULL;

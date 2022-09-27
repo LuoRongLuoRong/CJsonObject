@@ -53,6 +53,36 @@ int main(int argc, char* argv[])
                     "}");
      std::cout << oJson.ToString() << std::endl;
      std::cout << "-------------------------------------------------------------------" << std::endl;
+
+     neb::CJsonObject pJson("{\"refresh_interval\":60,"
+                           "\"test_float\":[18.0, 10.0, 5.0],"
+                           "\"test_int\":[135355, -1844674407370955161, -935375],"
+                           "\"timeout\":12.5,"
+                           "\"dynamic_loading\":["
+                           "{"
+                           "\"so_path\":\"plugins/User.so\", \"load\":false, \"version\":1,"
+                           "\"cmd\":["
+                           "{\"cmd\":2001, \"class\":\"neb::CmdUserLogin\"},"
+                           "{\"cmd\":2003, \"class\":\"neb::CmdUserLogout\"}"
+                           "],"
+                           "\"module\":["
+                           "{\"path\":\"im/user/login\", \"class\":\"neb::ModuleLogin\"},"
+                           "{\"path\":\"im/user/logout\", \"class\":\"neb::ModuleLogout\"}"
+                           "]"
+                           "},"
+                           "{"
+                           "\"so_path\":\"plugins/ChatMsg.so\", \"load\":false, \"version\":1,"
+                           "\"cmd\":["
+                           "{\"cmd\":2001, \"class\":\"neb::CmdChat\"}"
+                           "],"
+                           "\"module\":[]"
+                           "}"
+                           "]"
+                           "}");
+     bool isSame = oJson.compare(pJson);
+     std::cout << "isSame:" << isSame << std::endl;
+
+     std::cout << "-------------------------------------------------------------------" << std::endl;
      std::cout << oJson["dynamic_loading"][0]["cmd"][1]("class") << std::endl;
      oJson["dynamic_loading"][0]["cmd"][0].Get("cmd", iValue);
      std::cout << "iValue = " << iValue << std::endl;
