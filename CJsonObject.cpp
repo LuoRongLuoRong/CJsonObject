@@ -826,8 +826,50 @@ bool CJsonObject::Get(const std::string& strKey, int64& llValue) const
     return(false);
 }
 
-bool CJsonObject::Compare(cJSON* newJson) {
-    return cJSON_Compare(pJsonStruct, newJson);
+bool CJsonObject::Compare(const std::string& strKey, CJsonObject qCJsonObject) {
+    cJSON* pJsonStruct = NULL;
+    cJSON* qJsonStruct = NULL;
+
+    if (m_pJsonData != NULL)
+    {
+        if (m_pJsonData->type == cJSON_Object)
+        {
+            pJsonStruct = cJSON_GetObjectItem(m_pJsonData, strKey.c_str());
+        }
+    }
+    else if (m_pExternJsonDataRef != NULL)
+    {
+        if(m_pExternJsonDataRef->type == cJSON_Object)
+        {
+            pJsonStruct = cJSON_GetObjectItem(m_pExternJsonDataRef, strKey.c_str());
+        }
+    }
+    if (pJsonStruct == NULL)
+    {
+        return(false);
+    }
+
+    if (qCJsonObject.m_pJsonData != NULL)
+    {
+        if (qCJsonObject.m_pJsonData->type == cJSON_Object)
+        {
+            qJsonStruct = cJSON_GetObjectItem(m_pJsonData, strKey.c_str());
+        }
+    }
+    else if (qCJsonObject.m_pExternJsonDataRef != NULL)
+    {
+        if(qCJsonObject.m_pExternJsonDataRef->type == cJSON_Object)
+        {
+            qJsonStruct = cJSON_GetObjectItem(m_pExternJsonDataRef, strKey.c_str());
+        }
+    }
+    if (qJsonStruct == NULL)
+    {
+        return(false);
+    }
+
+
+    return cJSON_Compare(pJsonStruct, qJsonStruct);
 }
 
 bool CJsonObject::Get(const std::string& strKey, uint64& ullValue) const

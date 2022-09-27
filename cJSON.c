@@ -115,27 +115,27 @@ void cJSON_Delete(cJSON *c)
     }
 }
 
-bool compare_double(double aValue, double bValue)
+int compare_double(double aValue, double bValue)
 {
     double maxVal = aValue > bValue ? aValue : bValue;
     double minVal = aValue > bValue ? bValue : aValue;
-    bool approximatively_equal = ((maxVal - minVal) <= maxVal * DBL_EPSILON);
+    int approximatively_equal = ((maxVal - minVal) <= maxVal * DBL_EPSILON);
     return approximatively_equal;
 }
 
-bool cJSON_Compare(cJSON * aCJSON, cJSON * bCJSON)
+int cJSON_Compare(cJSON * aCJSON, cJSON * bCJSON)
 {
     int aType = aCJSON->type;
     int bType = bCJSON->type;
     if ((aCJSON == NULL) || (bCJSON == NULL) || (aType != bType))
     {
-        return false;
+        return 0;
     }
 
     /* identical objects are equal */
-    if (a == b)
+    if (aCJSON == bCJSON)
     {
-        return true;
+        return 1;
     }
 
     switch (aType)
@@ -144,16 +144,19 @@ bool cJSON_Compare(cJSON * aCJSON, cJSON * bCJSON)
         case cJSON_False:
         case cJSON_True:
         case cJSON_NULL:
-            return true;
+            return 1;
 
-        case cJSON_Number:
-            if (compare_double(a->valuedouble, b->valuedouble))
+        case cJSON_Int:
+            return aCJSON->valueint == bCJSON->valueint;
+
+        case cJSON_Double:
+            if (compare_double(aCJSON->valuedouble, bCJSON->valuedouble))
             {
-                return true;
+                return 1;
             }
-            return false;
+            return 0;
         default:
-            return false;
+            return 0;
     }
 }
 

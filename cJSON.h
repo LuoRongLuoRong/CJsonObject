@@ -46,6 +46,7 @@ extern "C"
 #define cJSON_Array 6
 #define cJSON_Object 7
 
+
 #define cJSON_IsReference 256
 
 /* The cJSON structure: */
@@ -82,8 +83,8 @@ extern char *cJSON_PrintUnformatted(cJSON *item);
 /* Delete a cJSON entity and all subentities. */
 extern void cJSON_Delete(cJSON *c);
 /* securely comparison of floating-point variables */
-extern bool compare_double(double a, double b);
-extern bool cJSON_Compare(const cJSON * const aCJSON, const cJSON * const bCJSON, bool case_sensitive)
+extern int compare_double(double a, double b);
+extern int cJSON_Compare(cJSON * aCJSON, cJSON * bCJSON);
 
 
 /* Returns the number of items in an array (or object). */

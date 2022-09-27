@@ -222,7 +222,7 @@ private:
 #endif
 
 public:
-    bool Compare(cJSON* newJson);
+    bool Compare(const std::string& strKey, CJsonObject qCJsonObject);
 };
 
 }
