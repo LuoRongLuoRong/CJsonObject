@@ -127,16 +127,7 @@ int cJSON_Compare(cJSON * aCJSON, cJSON * bCJSON)
 {
     int aType = aCJSON->type;
     int bType = bCJSON->type;
-    if ((aCJSON == NULL) || (bCJSON == NULL) || (aType != bType))
-    {
-        return 0;
-    }
-
-    /* identical objects are equal */
-    if (aCJSON == bCJSON)
-    {
-        return 1;
-    }
+    int equal = 0;
 
     switch (aType)
     {
@@ -144,20 +135,18 @@ int cJSON_Compare(cJSON * aCJSON, cJSON * bCJSON)
         case cJSON_False:
         case cJSON_True:
         case cJSON_NULL:
-            return 1;
-
+            equal = 1;
+            break;
         case cJSON_Int:
-            return aCJSON->valueint == bCJSON->valueint;
+            equal = aCJSON->valueint == bCJSON->valueint ? 1 : 0;
 
         case cJSON_Double:
-            if (compare_double(aCJSON->valuedouble, bCJSON->valuedouble))
-            {
-                return 1;
-            }
-            return 0;
+            equal = compare_double(aCJSON->valuedouble, bCJSON->valuedouble);
+            break;
         default:
-            return 0;
+            break;
     }
+    return equal;
 }
 
 /* Parse the input text to generate a number, and populate the result into item. */
