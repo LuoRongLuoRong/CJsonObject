@@ -38,7 +38,9 @@
 #define UINT_MAX   4294967295U
 #endif
 
-const int EQUAL = 1; const int NOT_EQUAL = 0; double EPSILON = 1e-8;
+const int EQUAL = 1; 
+const int NOT_EQUAL = 0; 
+double EPSILON = 1e-8;
 
 /*
 const char *cJSON_GetErrorPtr()

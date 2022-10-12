@@ -37,13 +37,18 @@ extern "C"
 #endif
 
 /* cJSON Types: */
-enum cJsonType {
-    cJSON_False,
-    cJSON_True,
-    cJSON_NULL,
-    cJSON_Int,
-    cJSON_Double,
-    cJSON_Object
+enum cJOSN_Type {
+  cJSON_False,
+  cJSON_True,
+  cJSON_NULL,
+  cJSON_Int,
+  cJSON_Double,
+  cJSON_Number,
+  cJSON_String,
+  cJSON_Array,
+  cJSON_Object,
+  cJSON_Invalid,
+  cJSON_Raw
 };
 
 
