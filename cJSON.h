@@ -37,14 +37,14 @@ extern "C"
 #endif
 
 /* cJSON Types: */
-#define cJSON_False 0
-#define cJSON_True 1
-#define cJSON_NULL 2
-#define cJSON_Int 3
-#define cJSON_Double 4
-#define cJSON_String 5
-#define cJSON_Array 6
-#define cJSON_Object 7
+enum cJsonType {
+    cJSON_False,
+    cJSON_True,
+    cJSON_NULL,
+    cJSON_Int,
+    cJSON_Double,
+    cJSON_Object
+};
 
 
 #define cJSON_IsReference 256

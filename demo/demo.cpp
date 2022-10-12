@@ -155,7 +155,7 @@ int main(int argc, char* argv[])
      oLongLong.Get("long_long", ullValue);
      std::cout << "llValue = " << llValue << ",  ullValue = " << ullValue << std::endl;
      //oJson.Add("json_move", std::move(oLongLong)); // C++11
-    //  oJson.AddWithMove("json_move", oLongLong);  
+    //  oJson.AddWithMove("json_move", oLongLong);
      std::cout << oJson.ToString() << std::endl;
 }
 

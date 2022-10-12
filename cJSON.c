@@ -38,9 +38,9 @@
 #define UINT_MAX   4294967295U
 #endif
 
-/* remove global variable for thread safe. --by Bwar on 2020-11-15
-static const char *ep;
+const int EQUAL = 1; const int NOT_EQUAL = 0; double EPSILON = 1e-8;
 
+/*
 const char *cJSON_GetErrorPtr()
 {
     return ep;
@@ -56,8 +56,8 @@ static int cJSON_strcasecmp(const char *s1, const char *s2)
     for (; tolower(*s1) == tolower(*s2); ++s1, ++s2)
         if (*s1 == 0)
             return 0;
-    return tolower(*(const unsigned char *)s1)
-                    - tolower(*(const unsigned char *)s2);
+//    return tolower(*(const unsigned char *)s1) - tolower(*(const unsigned char *)s2);
+
 }
 
 static void *(*cJSON_malloc)(size_t sz) = malloc;
@@ -119,7 +119,7 @@ int compare_double(double aValue, double bValue)
 {
     double maxVal = aValue > bValue ? aValue : bValue;
     double minVal = aValue > bValue ? bValue : aValue;
-    int approximatively_equal = ((maxVal - minVal) <= maxVal * DBL_EPSILON);
+    int approximatively_equal = ((maxVal - minVal) <= maxVal * EPSILON);
     return approximatively_equal;
 }
 
@@ -127,7 +127,7 @@ int cJSON_Compare(cJSON * aCJSON, cJSON * bCJSON)
 {
     int aType = aCJSON->type;
     int bType = bCJSON->type;
-    int equal = 0;
+    int equal;
 
     switch (aType)
     {
@@ -135,15 +135,16 @@ int cJSON_Compare(cJSON * aCJSON, cJSON * bCJSON)
         case cJSON_False:
         case cJSON_True:
         case cJSON_NULL:
-            equal = 1;
+            equal = NOT_EQUAL;
             break;
         case cJSON_Int:
-            equal = aCJSON->valueint == bCJSON->valueint ? 1 : 0;
-
+            equal = aCJSON->valueint == bCJSON->valueint ? EQUAL : NOT_EQUAL;
+            break;
         case cJSON_Double:
             equal = compare_double(aCJSON->valuedouble, bCJSON->valuedouble);
             break;
         default:
+            equal = NOT_EQUAL;
             break;
     }
     return equal;
