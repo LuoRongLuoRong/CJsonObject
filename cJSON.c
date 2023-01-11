@@ -121,7 +121,7 @@ int compare_double(double aValue, double bValue)
 {
     double maxVal = aValue > bValue ? aValue : bValue;
     double minVal = aValue > bValue ? bValue : aValue;
-    int approximatively_equal = ((maxVal - minVal) <= maxVal * EPSILON);
+    int approximatively_equal = ((maxVal - minVal) <= EPSILON);
     return approximatively_equal;
 }
 
