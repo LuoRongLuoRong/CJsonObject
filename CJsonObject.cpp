@@ -861,7 +861,8 @@ bool CJsonObject::Compare(const std::string& strKey, CJsonObject qCJsonObject) {
     if (qJsonStruct == NULL) {
         return(false);
     }
-    return cJSON_Compare(pJsonStruct, qJsonStruct);
+    bool res = cJSON_Compare(pJsonStruct, qJsonStruct);
+    return res;
 }
 
 bool CJsonObject::Get(const std::string& strKey, uint64& ullValue) const
