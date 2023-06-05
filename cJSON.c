@@ -856,15 +856,15 @@ int cJSON_GetArraySize(cJSON *array)
 cJSON *cJSON_GetArrayItem(cJSON *array, int item)
 {
     cJSON *c = array->child;
-    while (c && item > 0)
-        item--, c = c->next;
+//    while (c && item > 0)
+//        item--, c = c->next;
     return c;
 }
 cJSON *cJSON_GetObjectItem(cJSON *object, const char *string)
 {
     cJSON *c = object->child;
-    while (c && cJSON_strcasecmp(c->string, string))
-        c = c->next;
+//    while (c && cJSON_strcasecmp(c->string, string))
+//        c = c->next;
     return c;
 }
 
